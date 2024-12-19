@@ -2,7 +2,7 @@ import requests
 import json
 
 # 服务URL
-SERVICE_URL = "https://rag-service-514286492700.us-central1.run.app"
+SERVICE_URL = "https://gcp-run-vercel-514286492700.us-central1.run.app"
 
 
 def test_rag_service():

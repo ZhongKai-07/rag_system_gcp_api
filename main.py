@@ -1,5 +1,6 @@
 # main.py
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware  # 添加CORS中间件
 from pydantic import BaseModel
 from typing import List, Optional
 import os
@@ -44,6 +45,20 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+
+# 配置CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",  # Vercel开发环境
+        "https://rag-system-eta.vercel.app/",  # 替换为你的Vercel部署域名
+        "*"  # 允许所有域名（生产环境建议指定具体域名）
+    ],
+    allow_credentials=True,  # 允许携带凭证
+    allow_methods=["*"],  # 允许所有方法
+    allow_headers=["*"],  # 允许所有请求头
+    expose_headers=["*"]  # 允许暴露的响应头
+)
 
 class Document(BaseModel):
     text: str
